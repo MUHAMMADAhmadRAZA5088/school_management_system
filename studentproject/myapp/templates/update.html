@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<!--start page wrapper -->
+		<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<!--breadcrumb-->
+				<div class="row">
+					<div class="col-xl-12 mx-auto">
+						
+						<div class="card">
+							<div class="card-body p-4">
+								{% if messages %}
+								<div>
+									{% for message in messages %}
+										<div class="text-dark alert alert-success">
+											{{ message }}
+										</div>
+									{% endfor %}
+								</div>
+								{% endif %}
+
+							
+
+								<h5 class="mb-4">Student Form</h5>
+								<form method="post" enctype="multipart/form-data" class="row g-3">
+									{% csrf_token %}
+									<div class="col-xl-6">
+										<label for="input1" class="form-label">Student Name</label>
+										<input type="text" class="form-control" name="student_name" id="student_name" value = "{{student.student_name}}"  placeholder="student Name">
+									
+									</div>
+									<div class="col-xl-6">
+										<label for="input2" class="form-label">Father Name</label>
+										<input type="text" class="form-control" value="{{ student.father_name }}" name="father_name" id="input2" placeholder="Last Name">
+									</div>
+									<div class="col-xl-6">
+										<label for="input3" class="form-label">B FORM/ID</label>
+										<input type="tel" class="form-control" name="student_bform" id="input3" value="{{student.b_form_id}}" placeholder="B FORM/ID">
+									</div>
+									<div class="col-xl-6">
+										<label for="input4" class="form-label">ID Card Father</label>
+										<input type="tel" class="form-control" name="father_id_card" id="input4" value="{{student.father_id_card}}" placeholder="ID Card Father">
+									</div>
+									<div class="col-md-6">
+										<label for="input5" class="form-label">Number</label>
+										<input type="tel" class="form-control" name="phone_number" id="input5"  value="{{student.phone_number}}" placeholder="Number">
+
+									</div>
+									<div class="col-md-6">
+										<label for="input7" class="form-label">Section</label>
+										<select id="input7" class="form-select" name="section">
+											<option value="" disabled {% if not student.section %}selected{% endif %}>...</option>
+            <option value="Abu Baker" {% if student.section == "Abu Baker" %}selected{% endif %}>Abu Baker</option>
+            <option value="Umer" {% if student.section == "Umer" %}selected{% endif %}>Umer</option>
+            <option value="Usman" {% if student.section == "Usman" %}selected{% endif %}>Usman</option>
+            <option value="Ali" {% if student.section == "Ali" %}selected{% endif %}>Ali</option>
+										</select>
+									</div>
+									<div class="col-md-12"></div>
+										<label for="input7" class="form-label">class</label>
+										<select id="input7" class="form-select" name="class">
+											<option value="" disabled {% if not student.class %}selected{% endif %}>Select Class</option>
+											{% for i in classes %}
+												<option value="{{ i }}" {% if student.class|stringformat:'d' == i|stringformat:'d' %}selected{% endif %}>{{ i }}</option>
+											{% endfor %}
+										</select>
+										
+										
+									<div class="col-md-12 mb">
+										<label for="input8" class="form-label">DOB</label>
+										<input type="date" class="form-control" name="dob" value="{{ student.dob }}" id="input8" placeholder="Date of Birth">
+									</div>
+
+									<div class="col-md-4"></div>
+										<label for="input6" class="form-label">upload Picture</label>
+										<input type="file" class="form-control" id="inatput6" name="picture" placeholder="Picture">
+									</div>
+
+									<div class="col-md-11">
+										<label for="input11" class="form-label ms-3">Address</label>
+										<textarea class="form-control ms-2" id="input11" name="address" placeholder="Address ..." rows="3">{{ student.address }}</textarea>
+									</div>
+
+									<div class="col-md-12 mt-2 pb-2">
+										<div class="d-md-flex d-grid align-items-center gap-3">
+											<button type="submit" class="btn btn-primary px-4">Submit</button>
+										</div>
+									</div>
+								</div>
+								</form>
+				
+							</div>
+						</div>
+			</div>
+		</div>
+		{% endblock %}
